@@ -1,6 +1,9 @@
 public class Main {
     public static void main(String[] args) {
-        implementsRunnableThroughLambdaExpression();
+//        implementsRunnableThroughLambdaExpression();
+//        disableThread();
+        interruptThread2();
+
     }
     public static void extendsThreadClass() {
         Thread thread = Thread.currentThread();
@@ -24,7 +27,6 @@ public class Main {
         myThread.start();
         System.out.println("Main finished");
     }
-
     public static void implementsRunnableThroughLambdaExpression() {
         System.out.println("Main started");
 
@@ -43,4 +45,54 @@ public class Main {
 
         System.out.println("Main finished");
     }
+    public static void disableThread() {
+        System.out.println("Main started");
+        MyThreadToo myThreadToo = new MyThreadToo();
+        new Thread(myThreadToo, "disableThread").start();
+
+        try {
+            Thread.sleep(1100);
+
+            myThreadToo.disable();
+
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            System.out.println(e.getMessage());
+        }
+
+        System.out.println("Main finished");
+    }
+    public static void interruptThread() {
+        System.out.println("Main started");
+
+        InterThread interThread = new InterThread("InterruptingThread");
+        interThread.start();
+
+        try {
+            Thread.sleep(150);
+            interThread.interrupt();
+            Thread.sleep(150);
+        } catch (InterruptedException e) {
+            System.out.println(e.getMessage());
+        }
+
+        System.out.println("Main finished");
+    }
+    public static void interruptThread2() {
+        System.out.println("Main started");
+
+        InterThreadToo interThread = new InterThreadToo("InterruptingThreadToo");
+        interThread.start();
+
+        try {
+            Thread.sleep(150);
+            interThread.interrupt();
+            Thread.sleep(150);
+        } catch (InterruptedException e) {
+            System.out.println(e.getMessage());
+        }
+
+        System.out.println("Main finished");
+    }
+
 }
